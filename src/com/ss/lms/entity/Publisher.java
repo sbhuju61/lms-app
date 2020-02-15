@@ -1,6 +1,7 @@
 package com.ss.lms.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Publisher implements Serializable {
 
@@ -9,6 +10,7 @@ public class Publisher implements Serializable {
 	private String publisherName;
 	private String publisherAddress;
 	private String publisherPhone;
+	private List<Book> books;
 
 	public Integer getPublisherId() {
 		return publisherId;
@@ -40,6 +42,14 @@ public class Publisher implements Serializable {
 
 	public void setPublisherPhone(String publisherPhone) {
 		this.publisherPhone = publisherPhone;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 
 }

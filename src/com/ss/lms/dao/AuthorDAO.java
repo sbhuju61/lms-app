@@ -14,9 +14,10 @@ import com.ss.lms.entity.Book;
 
 /**
  * @author ppradhan
+ * @param <T>
  *
  */
-public class AuthorDAO extends BaseDAO {
+public class AuthorDAO extends BaseDAO<Author> {
 
 	public AuthorDAO(Connection conn) {
 		super(conn);
@@ -39,11 +40,11 @@ public class AuthorDAO extends BaseDAO {
 	}
 	
 	public void insertBookAuthors(Author author, Book book) throws ClassNotFoundException, SQLException{
-		save("insert into tbl_book_authors values(?, ?)", new Object[] {author.getAuthorId(), book.getBookId()});
+		save("insert into tbl_book_authors (bookId,authorId) values (?, ?)", new Object[] {book.getBookId(),author.getAuthorId()});
 	}
 	
 	public List<Author> readAuthors() throws ClassNotFoundException, SQLException {
-		return read("select * from tbl_authors", null);
+		return read("select * from tbl_author", null);
 	}
 	
 	public List<Author> readAuthorsByName(String authorName) throws ClassNotFoundException, SQLException {
@@ -69,7 +70,7 @@ public class AuthorDAO extends BaseDAO {
 	@Override
 	public List<Author> extractDataFirstLevel(ResultSet rs) throws SQLException, ClassNotFoundException {
 		List<Author> authors = new ArrayList<>();
-		BookDAO bdao = new BookDAO(conn);
+		
 		while(rs.next()){
 			Author a = new Author();
 			a.setAuthorId(rs.getInt("authorId"));

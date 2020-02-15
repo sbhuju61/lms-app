@@ -3,26 +3,20 @@ package com.ss.lms.entity;
 import java.time.LocalDate;
 
 public class Loans {
-	private Branch libraryBranch;
-	private Book book;
+	private Integer branchId;
+
+	private Integer bookId;
+	private Integer cardNo;
 	private LocalDate dateOut;
 	private LocalDate dueDate;
 	private LocalDate dateIn;
 
-	public Branch getLibraryBranch() {
-		return libraryBranch;
+	public Integer getBranchId() {
+		return branchId;
 	}
 
-	public void setLibraryBranch(Branch libraryBranch) {
-		this.libraryBranch = libraryBranch;
-	}
-
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
+	public void setBranchId(Integer branchId) {
+		this.branchId = branchId;
 	}
 
 	public LocalDate getDateOut() {
@@ -47,6 +41,22 @@ public class Loans {
 
 	public void setDateIn(LocalDate dateIn) {
 		this.dateIn = dateIn;
+	}
+
+	public Integer getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+
+	public Integer getCardNo() {
+		return cardNo;
+	}
+
+	public void setCardNo(Integer cardNo) {
+		this.cardNo = cardNo;
 	}
 
 }

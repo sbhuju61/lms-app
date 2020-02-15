@@ -12,7 +12,7 @@ public abstract class BaseDAO<T> {
 	protected static Connection conn = null;
 	
 	public BaseDAO(Connection conn){
-		this.conn = conn;
+		BaseDAO.conn = conn;
 	}
 	
 	protected void save(String sql, Object[] vals) throws SQLException, ClassNotFoundException{
@@ -28,6 +28,7 @@ public abstract class BaseDAO<T> {
 	}
 	
 	protected Integer saveReturnPk(String sql, Object[] vals) throws SQLException, ClassNotFoundException{
+		
 		PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		if(vals!=null){
 			int index = 1;
@@ -37,7 +38,7 @@ public abstract class BaseDAO<T> {
 			}
 		}
 		pstmt.executeUpdate();
-		ResultSet rs = pstmt.executeQuery();
+		ResultSet rs = pstmt.getGeneratedKeys();
 		while(rs.next()){
 			return rs.getInt(1);
 		}

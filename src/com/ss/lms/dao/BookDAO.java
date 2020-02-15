@@ -15,18 +15,18 @@ import com.ss.lms.entity.Book;
  * @book ppradhan
  *
  */
-public class BookDAO extends BaseDAO {
+public class BookDAO extends BaseDAO<Book> {
 
 	public BookDAO(Connection conn) {
 		super(conn);
 	}
 
 	public void addBook(Book book) throws ClassNotFoundException, SQLException {
-		save("insert into tbl_book (title) values (?)", new Object[] { book.getTitle() });
+		save("insert into tbl_book (title,pubID) values (?,?)", new Object[] { book.getTitle(),book.getPublisher().getPublisherId() });
 	}
 	
 	public Integer addBookReturnPK(Book book) throws ClassNotFoundException, SQLException {
-		return saveReturnPk("insert into tbl_book (title) values (?)", new Object[] { book.getTitle() });
+		return saveReturnPk("insert into tbl_book (title,pubID) values (?,?)", new Object[] { book.getTitle(),book.getPublisher().getPublisherId() });
 	}
 
 	public void updateBook(Book book) throws SQLException, ClassNotFoundException {
@@ -38,11 +38,11 @@ public class BookDAO extends BaseDAO {
 	}
 	
 	public List<Book> readBooks() throws ClassNotFoundException, SQLException {
-		return read("select * from tbl_books", null);
+		return read("select * from tbl_book", null);
 	}
 	
 	public List<Book> readBooksByName(String title) throws ClassNotFoundException, SQLException {
-		return read("select * from tbl_books where title = ?", new Object[]{title});
+		return read("select * from tbl_book where title = ?", new Object[]{title});
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class BookDAO extends BaseDAO {
 	@Override
 	public List<Book> extractDataFirstLevel(ResultSet rs) throws SQLException, ClassNotFoundException {
 		List<Book> books = new ArrayList<>();
-		AuthorDAO adao = new AuthorDAO(conn);
+		
 		//genre doa, branch dao
 		while(rs.next()){
 			Book b = new Book();
